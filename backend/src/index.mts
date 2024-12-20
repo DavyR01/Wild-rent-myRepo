@@ -1,6 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+// import * as jwt from "jsonwebtoken";
 import { createClient } from "redis";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
@@ -15,8 +16,10 @@ import {
 
 import dotenv from "dotenv";
 import Stripe from "stripe";
+
 dotenv.config();
 // require("dotenv").config();
+const {verify} = jwt;
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 if (!stripeSecretKey) {
@@ -90,7 +93,7 @@ const start = async () => {
 
       if (token) {
         try {
-          const payload = jwt.verify(token, "mysupersecretkey");
+          const payload = verify(token, "mysupersecretkey");
           console.log("PAYLOAD :", payload); // Le payload contient l'email, le role et le username. Voir user.service.ts méthode login. 
 
           return payload;

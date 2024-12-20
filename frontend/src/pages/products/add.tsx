@@ -72,7 +72,7 @@ const ProductsAddPage = () => {
    };
 
    const uploadImages = async () => {
-      const urlPost = "http://localhost:8000/upload";
+      const urlPost = "http://localhost:8000/upload"; // TODO: To change
       const uploadPromises = files.map((singleFile) => {
          const formData = new FormData();
          formData.append("file", singleFile, singleFile.name);
